@@ -1,0 +1,23 @@
+{
+  "default_channel": "app",
+  "channels": {
+    "app": {
+      "handler": "file",
+      "path": "logs",
+      "max_files": 30,
+      "levels": ["debug", "error"],
+      "format": "json",
+      "per_run": true,
+      "file_names": {
+        "debug": "debug.log",
+        "error": "error.log"
+      }
+    }
+  },
+  "mail": {
+    "enabled": false
+  },
+  "processors": {
+    "enabled": false
+  }
+}

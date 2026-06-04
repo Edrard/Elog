@@ -1,0 +1,34 @@
+{
+  "default_channel": "mail",
+  "channels": {
+    "mail": {
+      "handler": "file",
+      "path": "examples/logs/mail",
+      "max_files": 7,
+      "levels": ["info", "warning", "error", "critical"],
+      "format": "line",
+      "file_names": {
+        "info": "info.log",
+        "warning": "error.log",
+        "error": "error.log",
+        "critical": "error.log"
+      }
+    }
+  },
+  "mail": {
+    "enabled": true,
+    "dsn": "null://null",
+    "from": "server@example.com",
+    "to": ["admin@example.com"],
+    "subject": "Elog example report",
+    "send_on_shutdown": false,
+    "separate": false,
+    "only_important": true,
+    "max_body_size": 1048576,
+    "attach_logs": false,
+    "important_levels": ["warning", "error", "critical"]
+  },
+  "processors": {
+    "enabled": false
+  }
+}

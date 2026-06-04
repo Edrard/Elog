@@ -1,0 +1,67 @@
+{
+    "name": "edrard/elog",
+    "description": "A lightweight PHP library for structured logging and email alerts, powered by Monolog and Symfony Mailer.",
+    "type": "library",
+    "homepage": "https://github.com/Edrard/Elog",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Edrard",
+            "email": "demonand@gmail.com"
+        }
+    ],
+    "keywords": [
+        "alerts",
+        "email",
+        "logging",
+        "mailer",
+        "monolog",
+        "psr-3"
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Edrard/helpers.git"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "edrard/helpers": "^1.1",
+        "monolog/monolog": "^3.10",
+        "psr/log": "^3.0",
+        "symfony/mailer": "^7.4",
+        "symfony/mime": "^7.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Edrard\\Elog\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Edrard\\Elog\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "8.2.0"
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "analyse": "phpstan analyse src tests --level=max --memory-limit=1G",
+        "cs-check": "php-cs-fixer fix --dry-run --diff --ansi",
+        "cs-fix": "php-cs-fixer fix --ansi",
+        "test": "phpunit --colors=always",
+        "quality": [
+            "@cs-check",
+            "@analyse",
+            "@test"
+        ]
+    }
+}

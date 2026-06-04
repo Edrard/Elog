@@ -1,0 +1,22 @@
+{
+  "default_channel": "json",
+  "channels": {
+    "json": {
+      "handler": "file",
+      "path": "examples/logs/json",
+      "max_files": 7,
+      "levels": ["info", "error"],
+      "format": "json"
+    }
+  },
+  "mail": {
+    "enabled": false
+  },
+  "processors": {
+    "enabled": true,
+    "memory_usage": true,
+    "process_id": true,
+    "uid": true,
+    "request_id": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "default_channel": "app",
+  "channels": {
+    "app": {
+      "handler": "file",
+      "path": "examples/logs/basic",
+      "max_files": 7,
+      "levels": ["info", "warning", "error", "critical"],
+      "format": "line",
+      "per_run": false,
+      "file_names": {
+        "info": "info.log",
+        "warning": "error.log",
+        "error": "error.log",
+        "critical": "error.log"
+      }
+    }
+  },
+  "mail": {
+    "enabled": false
+  },
+  "processors": {
+    "enabled": false
+  }
+}

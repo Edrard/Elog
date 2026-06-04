@@ -1,0 +1,35 @@
+{
+  "default_channel": "app",
+  "channels": {
+    "app": {
+      "handler": "file",
+      "path": "examples/logs/app",
+      "max_files": 7,
+      "levels": ["info", "warning", "error", "critical"],
+      "format": "line",
+      "file_names": {
+        "info": "info.log",
+        "warning": "error.log",
+        "error": "error.log",
+        "critical": "error.log"
+      }
+    },
+    "import": {
+      "handler": "file",
+      "path": "examples/logs/import",
+      "max_files": 7,
+      "levels": ["info", "error"],
+      "format": "line",
+      "file_names": {
+        "info": "info.log",
+        "error": "error.log"
+      }
+    }
+  },
+  "mail": {
+    "enabled": false
+  },
+  "processors": {
+    "enabled": false
+  }
+}

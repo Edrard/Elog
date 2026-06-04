@@ -1,0 +1,43 @@
+{
+  "default_channel": "app",
+  "channels": {
+    "app": {
+      "handler": "file",
+      "path": "logs",
+      "max_files": 14,
+      "levels": ["debug", "info", "notice", "warning", "error", "critical", "alert", "emergency"],
+      "format": "line",
+      "per_run": false,
+      "file_names": {
+        "debug": "debug.log",
+        "info": "info.log",
+        "notice": "info.log",
+        "warning": "error.log",
+        "error": "error.log",
+        "critical": "error.log",
+        "alert": "error.log",
+        "emergency": "error.log"
+      }
+    }
+  },
+  "mail": {
+    "enabled": false,
+    "dsn": null,
+    "from": null,
+    "to": [],
+    "subject": "Elog report",
+    "send_on_shutdown": true,
+    "separate": false,
+    "only_important": true,
+    "max_body_size": 1048576,
+    "attach_logs": false,
+    "important_levels": ["warning", "error", "critical", "alert", "emergency"]
+  },
+  "processors": {
+    "enabled": false,
+    "memory_usage": false,
+    "process_id": false,
+    "uid": false,
+    "request_id": false
+  }
+}
