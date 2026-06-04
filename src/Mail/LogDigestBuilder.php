@@ -7,6 +7,7 @@ namespace Edrard\Elog\Mail;
 use Edrard\Elog\Config\MailConfig;
 
 use function file_get_contents;
+use function filesize;
 use function sprintf;
 use function strlen;
 use function substr;
@@ -88,18 +89,51 @@ final class LogDigestBuilder
         }
 
         $body = '';
+        $truncated = false;
 
         foreach ($files as $file) {
-            $content = file_get_contents($file->path);
+            $header = "\n\n" . $file->label . "\n\n";
+            $remaining = $config->maxBodySize - strlen($body);
+
+            if ($remaining <= 0) {
+                $truncated = true;
+
+                break;
+            }
+
+            if (strlen($header) >= $remaining) {
+                $body .= substr($header, 0, $remaining);
+                $truncated = true;
+
+                break;
+            }
+
+            $body .= $header;
+            $remaining -= strlen($header);
+
+            if ($remaining < 1) {
+                $truncated = true;
+
+                break;
+            }
+
+            $fileSize = filesize($file->path);
+            $content = file_get_contents($file->path, false, null, 0, $remaining);
 
             if ($content === false) {
                 continue;
             }
 
-            $body .= "\n\n" . $file->label . "\n\n" . $content;
+            $body .= $content;
+
+            if ($fileSize !== false ? $fileSize > $remaining : strlen($content) >= $remaining) {
+                $truncated = true;
+
+                break;
+            }
         }
 
-        return $this->truncate($body, $config->maxBodySize);
+        return $truncated ? $body . "\n\n[Log body truncated by Elog.]" : $body;
     }
 
     /**

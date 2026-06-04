@@ -110,6 +110,30 @@ final class LogDigestBuilderTest extends TestCase
         self::assertStringNotContainsString('error body', $digests[0]->body);
     }
 
+    public function testItReadsOnlyUpToConfiguredBodyLimit(): void
+    {
+        $error = $this->logFile('error.log', str_repeat('x', 100), 'error', ['error']);
+        $critical = $this->logFile('critical.log', 'critical body should not be read', 'critical', ['critical']);
+
+        $digests = (new LogDigestBuilder())->build(
+            new MailConfig(
+                enabled: true,
+                dsn: 'null://null',
+                from: 'from@example.com',
+                to: ['to@example.com'],
+                maxBodySize: 32,
+            ),
+            'app',
+            [$error, $critical],
+        );
+
+        self::assertCount(1, $digests);
+        self::assertStringContainsString('error', $digests[0]->body);
+        self::assertStringContainsString('[Log body truncated by Elog.]', $digests[0]->body);
+        self::assertStringNotContainsString('critical body should not be read', $digests[0]->body);
+        self::assertLessThan(100, substr_count($digests[0]->body, 'x'));
+    }
+
     /**
      * @param list<string> $levels
      */

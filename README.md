@@ -498,7 +498,7 @@ Important behavior:
 - `only_important: true` keeps only files containing one of `important_levels`;
 - `separate: true` sends one email per collected log file;
 - `attach_logs: true` attaches log files instead of embedding their full content in the email body;
-- `max_body_size` limits the embedded body size.
+- `max_body_size` limits the embedded body size. Elog reads embedded log content only up to this byte limit, so large log files are not loaded fully into memory during shutdown delivery.
 
 For local tests or examples, use Symfony Mailer's null transport:
 
